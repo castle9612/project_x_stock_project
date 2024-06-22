@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import App1 from './components/start.js';
+import Start from './components/start.js';
+import Main from './components/main.js';
+import Membership from './components/membership.js';
 import { Component } from 'react';
 
 class App extends Component{
@@ -16,7 +18,9 @@ class App extends Component{
       <div id='App'>
         <BrowserRouter>
             <Routes>
-              <Route path='/' element={<App1/>}/>
+              <Route path='/' element={<Start/>}/>
+              <Route path='/main' element={<Main/>}/>
+              <Route path='/membership' element={<Membership/>}/>
             </Routes>   
         </BrowserRouter> 
       </div>
