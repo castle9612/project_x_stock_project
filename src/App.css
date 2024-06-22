@@ -1,0 +1,19 @@
+*{
+  margin:0;
+  padding:0;
+}
+
+ul{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+#App{
+  width: 1920px;
+  height: 1080px;
+  background-color: #EAEAEA;
+  margin:0 auto;
+}

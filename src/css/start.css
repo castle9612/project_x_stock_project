@@ -1,0 +1,46 @@
+#header_start{
+    width: 1920px;
+    height: 500px;
+    margin:0 auto;
+}
+
+#header_start>img{
+    width: 319px;
+    height: 319px;
+    margin-left:801px;
+    margin-top: 130px;
+    object-fit: cover;
+}
+
+#buttons_start{
+    width: 1920px;
+    height: 500px;
+}
+
+#buttons_start>input{
+    display:block;
+    width: 644px;
+    height: 77px;
+    background-color: #E78753;
+    margin:18px auto;
+    border-radius: 15px;
+
+    font-size: 28px;
+    color:aliceblue;
+    box-shadow: none;
+    border:none;
+    outline: none;
+}
+
+#footer_start{
+    width: 1920px;
+    height: 80px;
+}
+
+#footer_start>a{
+    display:block;
+    font-size: 16px;
+    color:#838383;
+    text-align: center;
+    margin:auto;
+}
