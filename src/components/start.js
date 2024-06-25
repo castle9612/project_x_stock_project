@@ -6,7 +6,7 @@ function Start() {
     <div id="App">
         <div id="header"/>
         <div id="body">
-            <div id="Login">
+            <form id="Login">
                 <h2>로그인</h2>
                 <input type="text" name="userID" placeholder="아이디"/><hr/>
                 <input type="text" name="userPW" placeholder="비밀번호"/><hr/>
@@ -14,7 +14,7 @@ function Start() {
                 <button type="submit" id="Login_btn">
                     <span>로그인</span>
                 </button>
-            </div>
+            </form>
         </div>
         <div id="footer"/>
     </div>
