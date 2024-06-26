@@ -13,3 +13,7 @@ spring:
   application:
     name: backend
 
+hantu-openapi:
+  domain: https://openapivts.koreainvestment.com:29443 #모의주식
+  appkey: PSbQoBfZNHBJ03lGGTpuhDlHhL39U0gseRiz #${api_appkey}
+  appsecret: 2G/xFvttLOQpe9hkACTywFSCnAP/iX5bJy9H+ntpEcgsdhG92h4TqX0vzkofLJ2o/3EKRtR1787bYeMCXK6F0DPHg4mqkkBDoNw/Q24xVzy5ZCoohyVMdQBmPAlK2zLuFSp4u/dWohEeih2Jikuvs/81LXxAcojcTtx05z1N3i8EAVUAIEo= #${api_appsecret}
