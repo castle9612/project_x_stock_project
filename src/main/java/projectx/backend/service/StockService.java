@@ -22,6 +22,9 @@ import java.util.Collections;
 @Slf4j
 public class StockService {
 
+    // https://apiportal.koreainvestment.com/apiservice/apiservice-domestic-stock-quotations2#L_a08c3421-e50f-4f24-b1fe-64c12f723c77 // 한투 openapi 문서
+    // https://www.ktb.co.kr/trading/popup/itemPop.jspx // 종목코드 검색
+
     @Autowired
     private StockRepository stockRepository;
 
@@ -35,6 +38,8 @@ public class StockService {
     private String appSecret;
 
     // stockservice에 안 어울리긴함..
+    // 1분당 1회로 토큰 발급 제한.
+    // user로 옮기는게 나을까? 아니면 따로 저장? 어디에?
     public TokenResponse getAccessToken() {
         // 접근토큰발급(P)[인증-001]
         RestTemplate restTemplate = new RestTemplate();
@@ -66,7 +71,7 @@ public class StockService {
     public void fetchAndSaveStockData(String marketCode, String stockCode, String startDate, String endDate, String periodCode) {
         TokenResponse accessToken = getAccessToken();
         String responseBody = getStockPriceData(marketCode, stockCode, startDate, endDate, periodCode, accessToken.getAccess_token());
-        log.info("responseBody: " + responseBody); // 여기에서 오류남 // {"rt_cd":"2","msg_cd":"OPSQ2001","msg1":"ERROR INVALID FID_COND_MRKT_DIV_CODE"}
+        //log.info("responseBody: " + responseBody); // 여기에서 오류남 // {"rt_cd":"2","msg_cd":"OPSQ2001","msg1":"ERROR INVALID FID_COND_MRKT_DIV_CODE"}
         saveStockData(responseBody, stockCode);
     }
 
@@ -106,6 +111,9 @@ public class StockService {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(responseBody);
             JsonNode output2 = rootNode.get("output2");
+            for (JsonNode jsonNode : output2) {
+                log.info(String.valueOf(jsonNode));
+            }
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
@@ -113,8 +121,8 @@ public class StockService {
                 Stock stock = new Stock();
                 stock.setStockCode(stockCode);
                 stock.setDate(LocalDate.parse(node.get("stck_bsop_date").asText(), formatter));
-                stock.setMaxPrice(node.get("stck_mxpr").asText());
-                stock.setMinPrice(node.get("stck_llam").asText());
+                stock.setMaxPrice(node.get("stck_hgpr").asText());
+                stock.setMinPrice(node.get("stck_lwpr").asText());
                 stock.setAccumTrans(node.get("acml_vol").asText());
 
                 stockRepository.save(stock);

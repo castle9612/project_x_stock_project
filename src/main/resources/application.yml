@@ -9,7 +9,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create # 그냥 올릴때 validate #새롭게 생성할떄 create #수정할떄 update
+      ddl-auto: validate # 그냥 올릴때 validate #새롭게 생성할떄 create #수정할떄 update
   application:
     name: backend
 

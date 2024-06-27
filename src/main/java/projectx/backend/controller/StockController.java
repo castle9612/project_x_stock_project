@@ -16,11 +16,11 @@ public class StockController {
     @PostMapping("/fetch-stock-data")
     public String fetchStockData(
             @RequestParam String marketCode,
-            @RequestParam String stockCode,
+            @RequestParam String stockCode, // SK하이닉스 000660, 삼성전자: 005930
             @RequestParam String startDate,
             @RequestParam String endDate,
             @RequestParam String periodCode) {
         stockService.fetchAndSaveStockData(marketCode, stockCode, startDate, endDate, periodCode);
-        return "Stock data fetched and saved successfully";
+        return stockCode+" Stock data fetched and saved successfully";
     }
 }
