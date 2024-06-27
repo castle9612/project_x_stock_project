@@ -13,6 +13,7 @@ public class StockController {
     @Autowired
     public StockService stockService;
 
+    // DB에 주식 정보 저장하는 코드
     @PostMapping("/fetch-stock-data")
     public String fetchStockData(
             @RequestParam String marketCode,
