@@ -1,11 +1,11 @@
-package projectx.backend.controller;
+// package projectx.backend.controller;
 
 
-import org.springframework.web.bind.annotation.RestController;
-import projectx.backend.service.StockManageService;
+// import org.springframework.web.bind.annotation.RestController;
+// import projectx.backend.service.StockManageService;
 
-@RestController
-public class StockManageController {
+// @RestController
+// public class StockManageController {
 
-    public StockManageService stockManageService;
-}
+//     public StockManageService stockManageService;
+// }

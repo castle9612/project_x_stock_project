@@ -1,13 +1,13 @@
-package projectx.backend.service;
+// package projectx.backend.service;
 
 
-import org.springframework.stereotype.Service;
-import projectx.backend.repository.StockRepository;
+// import org.springframework.stereotype.Service;
+// import projectx.backend.repository.StockRepository;
 
-@Service
-public class StockService {
+// @Service
+// public class StockService {
 
-    private final StockRepository stockRepository;
+//     private final StockRepository stockRepository;
 
-    }
-}
+//     }
+// }
