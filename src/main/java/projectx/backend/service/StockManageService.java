@@ -10,6 +10,7 @@ import projectx.backend.entity.StockManage;
 import projectx.backend.entity.User;
 import projectx.backend.entity.StockInfo;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -29,6 +30,26 @@ public class StockManageService {
 
     public List<StockManage> getStockManageByUserId(Long userId) {
         return stockManageRepository.findByUserId(userId);
+    }
+    
+    @Transactional
+    public void updateEarningsRate(StockManage stockManage) {
+        StockInfo stockInfo = stockManage.getStockInfo();
+        int currentPrice = stockInfo.getCurrentPrice();
+        int currentValue = currentPrice * stockManage.getQuantity();
+        // 수익률 계산 (예: (현재가치 - 매수금액) / 매수금액 * 100)
+        double earningsRate = ((double)(currentValue - stockManage.getMoney()) / stockManage.getMoney()) * 100;
+        stockManage.setEarningsRate(earningsRate);
+        stockManageRepository.save(stockManage);
+    }
+
+    // 모든 주식의 수익률 업데이트. 어디 부분에서 어떻게 쓸까?
+    @Transactional
+    public void updateAllEarningsRates() {
+        List<StockManage> allStockManages = stockManageRepository.findAll();
+        for (StockManage stockManage : allStockManages) {
+            updateEarningsRate(stockManage);
+        }
     }
 
     @Transactional
@@ -50,23 +71,26 @@ public class StockManageService {
         // 사용자의 현금 차감
         user.setCash(user.getCash() - money);
         userRepository.save(user);
-
+        	
         // StockManage 엔티티 생성 또는 업데이트
-        StockManage stockManage = stockManageRepository.findByUserAndStockInfo(user, stockInfo)
-        	    .orElse(new StockManage());
-        	if (stockManage.getId() == null) {
-        	    stockManage.setUser(user);
-        	    stockManage.setStockInfo(stockInfo);
-        	    stockManage.setMoney(0);
-        	    stockManage.setQuantity(0);
-        	}
-        	stockManage.setMoney(stockManage.getMoney() + money);
-        	stockManage.setQuantity(stockManage.getQuantity() + quantity);
-
-        // 수익률 계산 (예: (현재가치 - 매수금액) / 매수금액 * 100)
-        int currentValue = currentPrice * stockManage.getQuantity();
-        double earningsRate = ((double)(currentValue - stockManage.getMoney()) / stockManage.getMoney()) * 100;
-        stockManage.setEarningsRate(earningsRate);
+        Optional<StockManage> existingStockManage = stockManageRepository.findByUserAndStockInfo(user, stockInfo);
+            
+        StockManage stockManage;
+        if (existingStockManage.isPresent()) {
+            // 이미 해당 주식을 보유하고 있는 경우
+            stockManage = existingStockManage.get();
+            stockManage.setMoney(stockManage.getMoney() + money);
+            stockManage.setQuantity(stockManage.getQuantity() + quantity);
+        } else {
+            // 새로 주식을 구매하는 경우
+            stockManage = new StockManage();
+            stockManage.setUser(user);
+            stockManage.setStockInfo(stockInfo);
+            stockManage.setMoney(money);
+            stockManage.setQuantity(quantity);
+        }
+        
+        updateEarningsRate(stockManage);
 
         return stockManageRepository.save(stockManage);
     }
@@ -102,9 +126,7 @@ public class StockManageService {
             return null;
         } else {
             // 수익률 재계산
-            int currentValue = currentPrice * stockManage.getQuantity();
-            double earningsRate = ((double)(currentValue - stockManage.getMoney()) / stockManage.getMoney()) * 100;
-            stockManage.setEarningsRate(earningsRate);
+            updateEarningsRate(stockManage);
             return stockManageRepository.save(stockManage);
         }
     }
