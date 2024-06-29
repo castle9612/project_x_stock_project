@@ -1,6 +1,9 @@
 import '../css/start.css';
 
 function Start() {
+    const GoMain = () => {
+        window.location.href = '/main';
+    }
 
   return (
     <div id="App">
@@ -11,7 +14,7 @@ function Start() {
                 <input type="text" name="userID" placeholder="아이디"/><hr/>
                 <input type="text" name="userPW" placeholder="비밀번호"/><hr/>
                 <a href="/membership">회원가입</a><hr/>
-                <button type="submit" id="Login_btn">
+                <button type="submit" id="Login_btn" onClick={GoMain}>
                     <span>로그인</span>
                 </button>
             </form>
