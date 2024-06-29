@@ -33,17 +33,30 @@ public class StockManageService {
     }
     
     @Transactional
-    public void updateEarningsRate(StockManage stockManage) {
+    public double updateAndGetEarningsRate(Long userId, Long stockId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        StockInfo stockInfo = stockInfoRepository.findById(stockId)
+                .orElseThrow(() -> new RuntimeException("Stock not found"));
+        
+        StockManage stockManage = stockManageRepository.findByUserAndStockInfo(user, stockInfo)
+                .orElseThrow(() -> new RuntimeException("Stock not owned by user"));
+
+        return updateEarningsRate(stockManage);
+    }
+
+    @Transactional
+    public double updateEarningsRate(StockManage stockManage) {
         StockInfo stockInfo = stockManage.getStockInfo();
         int currentPrice = stockInfo.getCurrentPrice();
         int currentValue = currentPrice * stockManage.getQuantity();
-        // 수익률 계산 (예: (현재가치 - 매수금액) / 매수금액 * 100)
         double earningsRate = ((double)(currentValue - stockManage.getMoney()) / stockManage.getMoney()) * 100;
         stockManage.setEarningsRate(earningsRate);
         stockManageRepository.save(stockManage);
+        return earningsRate;
     }
 
-    // 모든 주식의 수익률 업데이트. 어디 부분에서 어떻게 쓸까?
+    // 모든 주식의 수익률 업데이트. 어디 부분에서 어떻게 쓸까? 사용 안할수도.
     @Transactional
     public void updateAllEarningsRates() {
         List<StockManage> allStockManages = stockManageRepository.findAll();

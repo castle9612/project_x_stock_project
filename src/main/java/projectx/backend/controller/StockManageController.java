@@ -30,6 +30,11 @@ public class StockManageController {
     public StockManage sellStock(@RequestParam Long userId, @RequestParam Long stockId, @RequestParam int quantity) {
         return stockManageService.sellStock(userId, stockId, quantity);
     }
+    
+    @GetMapping("/update-earnings-rate")
+    public double updateEarningsRate(@RequestParam Long userId, @RequestParam Long stockId) {
+        return stockManageService.updateAndGetEarningsRate(userId, stockId);
+    }
 
     // 추가 엔드포인트 구현...
 }
