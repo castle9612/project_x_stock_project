@@ -64,7 +64,20 @@ public class StockInfoService {
     public Optional<StockInfo> updateStock(String stockCode, StockInfo updatedStock) {
         return stockInfoRepository.findByStockCode(stockCode)
                 .map(stock -> {
-                    // 필드 업데이트 코드...
+                    stock.setStockList(updatedStock.getStockList());
+                    stock.setCompany(updatedStock.getCompany());
+                    stock.setStockType(updatedStock.getStockType());
+                    stock.setMarketCapitalization(updatedStock.getMarketCapitalization());
+                    stock.setDividend(updatedStock.getDividend());
+                    stock.setCurrentPrice(updatedStock.getCurrentPrice());
+                    stock.setVolume(updatedStock.getVolume());
+                    stock.setEps(updatedStock.getEps());
+                    stock.setPer(updatedStock.getPer());
+                    stock.setPbr(updatedStock.getPbr());
+                    stock.setRoe(updatedStock.getRoe());
+                    stock.setSector(updatedStock.getSector());
+                    stock.setListedDate(updatedStock.getListedDate());
+                    stock.setDescription(updatedStock.getDescription());
                     return stockInfoRepository.save(stock);
                 });
     }
@@ -78,7 +91,11 @@ public class StockInfoService {
     public void deleteStock(String stockCode) {
         StockInfo stockInfo = stockInfoRepository.findByStockCode(stockCode)
             .orElseThrow(() -> new EntityNotFoundException("Stock not found with code: " + stockCode));
-        stockInfoRepository.delete(stockInfo);
+        try {
+            stockInfoRepository.delete(stockInfo);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete stock with code: " + stockCode, e);
+        }
     }
 
     /**

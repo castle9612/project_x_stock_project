@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -22,38 +24,38 @@ public class StockInfo {
     @Column(name = "stock_code", unique = true, nullable = false)
     private String stockCode;  // 종목 코드
 
-    @Column(name = "stock_list")
+    @Column(name = "stock_list", nullable = false)
     private String stockList;  // 종목명
 
-    @Column(name = "company")
+    @Column(name = "company", nullable = false)
     private String company;    // 회사명
 
     @Column(name = "stock_type")
     private String stockType;  // 주식 유형
 
-    @Column(name = "market_capitalization")
-    private Long marketCapitalization;  // 시가총액
+    @Column(name = "market_capitalization", nullable = false)
+    private BigInteger marketCapitalization;  // 시가총액
 
-    @Column(name = "dividend")
-    private Double dividend;   // 배당금
+    @Column(name = "dividend", nullable = false)
+    private BigDecimal dividend;   // 배당금
 
-    @Column(name = "current_price")
-    private Double currentPrice;  // 현재 가격
+    @Column(name = "current_price", nullable = false)
+    private BigDecimal currentPrice;  // 현재 가격
 
-    @Column(name = "volume")
-    private Long volume;       // 거래량
+    @Column(name = "volume", nullable = false)
+    private BigInteger volume;       // 거래량
 
-    @Column(name = "eps")
-    private Double eps;        // 주당순이익
+    @Column(name = "eps", nullable = false)
+    private BigDecimal eps;        // 주당순이익
 
     @Column(name = "per")
-    private Double per;        // 주가수익비율
+    private BigDecimal per;        // 주가수익비율
 
     @Column(name = "pbr")
-    private Double pbr;        // 주가순자산비율
+    private BigDecimal pbr;        // 주가순자산비율
 
     @Column(name = "roe")
-    private Double roe;        // 자기자본이익률
+    private BigDecimal roe;        // 자기자본이익률
 
     @Column(name = "sector")
     private String sector;     // 업종
@@ -84,9 +86,23 @@ public class StockInfo {
      * 모든 필드를 포함한 생성자
      */
     public StockInfo(String stockCode, String stockList, String company, String stockType,
-                     Long marketCapitalization, Double dividend, Double currentPrice, Long volume,
-                     Double eps, Double per, Double pbr, Double roe, String sector,
+                     BigInteger marketCapitalization, BigDecimal dividend, BigDecimal currentPrice, BigInteger volume,
+                     BigDecimal eps, BigDecimal per, BigDecimal pbr, BigDecimal roe, String sector,
                      LocalDate listedDate, String description) {
-        // 필드 초기화 코드...
+        this.stockCode = stockCode;
+        this.stockList = stockList;
+        this.company = company;
+        this.stockType = stockType;
+        this.marketCapitalization = marketCapitalization;
+        this.dividend = dividend;
+        this.currentPrice = currentPrice;
+        this.volume = volume;
+        this.eps = eps;
+        this.per = per;
+        this.pbr = pbr;
+        this.roe = roe;
+        this.sector = sector;
+        this.listedDate = listedDate;
+        this.description = description;
     }
 }

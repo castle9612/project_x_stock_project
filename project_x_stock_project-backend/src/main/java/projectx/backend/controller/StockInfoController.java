@@ -1,6 +1,5 @@
 package projectx.backend.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,9 +52,16 @@ public class StockInfoController {
      * @return 생성된 주식 정보
      */
     @PostMapping
-    public ResponseEntity<StockInfo> createStock(@Valid @RequestBody StockInfo stockInfo) {
-        StockInfo createdStock = stockInfoService.saveStock(stockInfo);
-        return ResponseEntity.ok(createdStock);
+    public ResponseEntity<?> createStock(@RequestBody StockInfo stockInfo) {
+        if (stockInfo.getStockCode() == null || stockInfo.getStockCode().isEmpty()) {
+            return ResponseEntity.badRequest().body("Stock code is required");
+        }
+        try {
+            StockInfo createdStock = stockInfoService.saveStock(stockInfo);
+            return ResponseEntity.ok(createdStock);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to create stock: " + e.getMessage());
+        }
     }
 
     /**
@@ -65,7 +71,10 @@ public class StockInfoController {
      * @return 업데이트된 주식 정보, 없으면 404 Not Found
      */
     @PutMapping("/{stockCode}")
-    public ResponseEntity<StockInfo> updateStock(@PathVariable String stockCode, @Valid @RequestBody StockInfo stockInfo) {
+    public ResponseEntity<?> updateStock(@PathVariable String stockCode, @RequestBody StockInfo stockInfo) {
+        if (stockInfo.getStockCode() == null || !stockInfo.getStockCode().equals(stockCode)) {
+            return ResponseEntity.badRequest().body("Stock code mismatch");
+        }
         return stockInfoService.updateStock(stockCode, stockInfo)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
