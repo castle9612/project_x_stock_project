@@ -73,7 +73,7 @@ public class StockManageService {
                 .orElseThrow(() -> new RuntimeException("Stock not found"));
 
         // 사용자의 현금이 충분한지 확인
-        if (user.getCash() < money) {
+        if (user.getCurrentMoney() < money) {
             throw new RuntimeException("Insufficient funds");
         }
 
@@ -82,7 +82,7 @@ public class StockManageService {
         int quantity = money / currentPrice;
 
         // 사용자의 현금 차감
-        user.setCash(user.getCash() - money);
+        user.setCurrentMoney(user.getCurrentMoney() - money);
         userRepository.save(user);
         	
         // StockManage 엔티티 생성 또는 업데이트
@@ -126,7 +126,7 @@ public class StockManageService {
         int saleMoney = currentPrice * quantity;
 
         // 사용자의 현금 증가
-        user.setCash(user.getCash() + saleMoney);
+        user.setCurrentMoney(user.getCurrentMoney() + saleMoney);
         userRepository.save(user);
 
         // StockManage 엔티티 업데이트
