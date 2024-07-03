@@ -42,3 +42,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar{
+	archivesBaseName = 'projectx'
+	archiveFileName = 'stock.jar'
+	archiveVersion = "0.0.1"
+}

@@ -1,14 +1,25 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/projectx
+    url: jdbc:mysql://34.22.73.38:3306/projectx?useSSL=false&allowPublicKeyRetrieval=true #?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 7129
+    username: test
+    password: 1234
+
   jpa:
     open-in-view: false
     generate-ddl: true
     show-sql: true
     hibernate:
       ddl-auto: create # 그냥 올릴때 validate #새롭게 생성할떄 create #수정할떄 update
+      dialect: org.hibernate.dialect.MySQLDialect
   application:
     name: backend
+
+hantu-openapi:
+  domain: https://openapivts.koreainvestment.com:29443 #모의주식
+  appkey: PSbQoBfZNHBJ03lGGTpuhDlHhL39U0gseRiz #${api_appkey}
+  appsecret: 2G/xFvttLOQpe9hkACTywFSCnAP/iX5bJy9H+ntpEcgsdhG92h4TqX0vzkofLJ2o/3EKRtR1787bYeMCXK6F0DPHg4mqkkBDoNw/Q24xVzy5ZCoohyVMdQBmPAlK2zLuFSp4u/dWohEeih2Jikuvs/81LXxAcojcTtx05z1N3i8EAVUAIEo= #${api_appsecret}
+
+server:
+  port: 8080
+
