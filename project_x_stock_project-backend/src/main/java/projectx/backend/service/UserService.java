@@ -1,13 +1,13 @@
-// package projectx.backend.service;
+package projectx.backend.service;
 
 
-// import org.springframework.stereotype.Service;
-// import projectx.backend.repository.UserRepository;
+import org.springframework.stereotype.Service;
+import projectx.backend.repository.UserRepository;
 
-// @Service
-// public class UserService {
+@Service
+public class UserService {
 
-//     private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-//     }
-// }
+    }
+}
