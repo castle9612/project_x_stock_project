@@ -1,8 +1,8 @@
-//package projectx.backend.entity;
-//
-//import jakarta.persistence.Entity;
-//
-//@Entity
-//public class Stock {
-//
-//}
+package projectx.backend.entity;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Stock {
+
+}
