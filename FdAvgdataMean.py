@@ -4,7 +4,7 @@ import FinanceDataReader as fdr
 
 krs_data = pd.read_csv('D:\gitlab\project_x\project_sun\krxCodeData.csv', encoding='UTF-8')
 
-end_date = pd.to_datetime('today')
+end_date = pd.to_datetime('2024-07-03')
 start_date = end_date - pd.DateOffset(years=5)
 
 count = 0
