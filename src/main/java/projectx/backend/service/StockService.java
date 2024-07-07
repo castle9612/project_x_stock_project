@@ -17,6 +17,7 @@ import projectx.backend.repository.StockRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -128,6 +129,7 @@ public class StockService {
                 stock.setMaxPrice(node.get("stck_hgpr").asText());
                 stock.setMinPrice(node.get("stck_lwpr").asText());
                 stock.setAccumTrans(node.get("acml_vol").asText());
+                stock.setEndPrice(node.get("stck_clpr").asText());
 
                 stockRepository.save(stock);
             }
@@ -135,6 +137,31 @@ public class StockService {
             e.printStackTrace();
             // 에러 처리 로직 추가
         }
+    }
+
+    public String getStockDataByDateRange(String stockCode, LocalDate startDate, LocalDate endDate) {
+        List<Stock> stocks = stockRepository.findByStockCodeAndDateBetween(stockCode, startDate, endDate);
+
+        StringBuilder jsonBuilder = new StringBuilder();
+        jsonBuilder.append("{ \"data\": [");
+
+        for (int i = 0; i < stocks.size(); i++) {
+            Stock stock = stocks.get(i);
+            jsonBuilder.append("{")
+                    .append("\"Date\": \"").append(stock.getDate()).append("\", ")
+                    .append("\"고가\": ").append(stock.getMaxPrice()).append(", ")
+                    .append("\"저가\": ").append(stock.getMinPrice()).append(", ")
+                    .append("\"종가\": ").append(stock.getEndPrice()).append(", ")
+                    .append("\"거래량\": ").append(stock.getAccumTrans())
+                    .append("}");
+
+            if (i < stocks.size() - 1) {
+                jsonBuilder.append(",");
+            }
+        }
+
+        jsonBuilder.append("] }");
+        return jsonBuilder.toString();
     }
 
 }

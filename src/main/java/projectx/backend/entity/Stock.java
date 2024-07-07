@@ -1,6 +1,7 @@
 package projectx.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "stock")
 @Entity
 @Setter
+@Getter
 public class Stock {
 
     // 날짜, 상한가, 하한가, 누적거래량
@@ -23,5 +25,6 @@ public class Stock {
     private String maxPrice;
     private String minPrice;
     private String accumTrans;
+    private String endPrice;
 
 }

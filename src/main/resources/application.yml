@@ -1,16 +1,19 @@
 spring:
   datasource:
     url: jdbc:mysql://34.22.73.38:3306/projectx?useSSL=false&allowPublicKeyRetrieval=true #?createDatabaseIfNotExist=true
+    #url: jdbc:mysql://localhost:3306/projectx?useSSL=false&allowPublicKeyRetrieval=true #?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: test
     password: 1234
+    #username: root
+    #password: 7129
 
   jpa:
     open-in-view: false
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: validate # 그냥 올릴때 validate #새롭게 생성할떄 create #수정할떄 update
+      ddl-auto: update # 그냥 올릴때 validate #새롭게 생성할떄 create #수정할떄 update
       dialect: org.hibernate.dialect.MySQLDialect
   application:
     name: backend

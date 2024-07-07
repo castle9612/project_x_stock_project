@@ -22,7 +22,7 @@ public class UserService {
         // 비밀번호 암호화
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         // 기본 balance 값 설정
-        user.setBalance(0.0);
+        user.setBalance(1000000.0);
         return userRepository.save(user);
     }
 
