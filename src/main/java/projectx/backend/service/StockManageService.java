@@ -80,9 +80,10 @@ public class StockManageService {
         // 현재 주가로 구매 가능한 주식 수량 계산
         double currentPrice = stockInfo.getCurrentPrice();
         int quantity = money / (int)currentPrice;
+        double realInvestmentPrice = quantity * currentPrice;
 
         // 사용자의 현금 차감
-        user.setBalance(user.getBalance() - money);
+        user.setBalance(user.getBalance() - realInvestmentPrice);
         userRepository.save(user);
 
         // StockManage 엔티티 생성 또는 업데이트
@@ -92,14 +93,14 @@ public class StockManageService {
         if (existingStockManage.isPresent()) {
             // 이미 해당 주식을 보유하고 있는 경우
             stockManage = existingStockManage.get();
-            stockManage.setMoney(stockManage.getMoney() + money);
+            stockManage.setMoney(stockManage.getMoney() + realInvestmentPrice);
             stockManage.setQuantity(stockManage.getQuantity() + quantity);
         } else {
             // 새로 주식을 구매하는 경우
             stockManage = new StockManage();
             stockManage.setUser(user);
             stockManage.setStockInfo(stockInfo);
-            stockManage.setMoney(money);
+            stockManage.setMoney(realInvestmentPrice);
             stockManage.setQuantity(quantity);
         }
 

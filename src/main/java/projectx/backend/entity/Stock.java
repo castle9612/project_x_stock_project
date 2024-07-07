@@ -25,6 +25,7 @@ public class Stock {
     private String maxPrice;
     private String minPrice;
     private String accumTrans;
-    private String endPrice;
+    private String openPrice;
+    private String closePrice;
 
 }

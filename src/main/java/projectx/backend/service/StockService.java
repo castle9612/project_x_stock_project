@@ -10,12 +10,14 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import projectx.backend.dto.StockGraphDto;
 import projectx.backend.dto.TokenResponse;
 import projectx.backend.entity.Stock;
 import projectx.backend.repository.StockRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -129,7 +131,8 @@ public class StockService {
                 stock.setMaxPrice(node.get("stck_hgpr").asText());
                 stock.setMinPrice(node.get("stck_lwpr").asText());
                 stock.setAccumTrans(node.get("acml_vol").asText());
-                stock.setEndPrice(node.get("stck_clpr").asText());
+                stock.setOpenPrice(node.get("stck_oprc").asText());
+                stock.setClosePrice(node.get("stck_clpr").asText());
 
                 stockRepository.save(stock);
             }
@@ -151,7 +154,7 @@ public class StockService {
                     .append("\"Date\": \"").append(stock.getDate()).append("\", ")
                     .append("\"고가\": ").append(stock.getMaxPrice()).append(", ")
                     .append("\"저가\": ").append(stock.getMinPrice()).append(", ")
-                    .append("\"종가\": ").append(stock.getEndPrice()).append(", ")
+                    .append("\"종가\": ").append(stock.getClosePrice()).append(", ")
                     .append("\"거래량\": ").append(stock.getAccumTrans())
                     .append("}");
 
@@ -162,6 +165,28 @@ public class StockService {
 
         jsonBuilder.append("] }");
         return jsonBuilder.toString();
+    }
+
+    public List<StockGraphDto> getStockGraphData(String stockCode, LocalDate startDate, LocalDate endDate) {
+
+        List<Stock> stocks = stockRepository.findByStockCodeAndDateBetween(stockCode, startDate, endDate);
+
+        List<StockGraphDto> result = new ArrayList<>();
+
+        for (int i = 0; i < stocks.size(); i++) {
+            Stock stock = stocks.get(i);
+            StockGraphDto stockGraphDto = StockGraphDto.builder()
+                    .date(stock.getDate())
+                    .open(Integer.parseInt(stock.getOpenPrice()))
+                    .high(Integer.parseInt(stock.getMaxPrice()))
+                    .low(Integer.parseInt(stock.getMinPrice()))
+                    .close(Integer.parseInt(stock.getClosePrice()))
+                    .build();
+
+            result.add(stockGraphDto);
+        }
+
+        return result;
     }
 
 }
