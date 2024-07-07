@@ -50,6 +50,13 @@ public class StockInfoController {
         }
     }
 
+    @PostMapping("/updateCurrentPrice")
+    public ResponseEntity<?> updateCurrentPrice(@RequestParam String stockCode, @RequestParam double updatePrice) {
+        return stockInfoService.updateCurrentPrice(stockCode, updatePrice)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     @PutMapping("/{stockCode}")
     public ResponseEntity<?> updateStock(@PathVariable String stockCode, @RequestBody StockInfo stockInfo) {
