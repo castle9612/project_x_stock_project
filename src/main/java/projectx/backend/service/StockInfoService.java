@@ -40,6 +40,15 @@ public class StockInfoService {
         return stockInfoRepository.save(stockInfo);
     }
 
+    @Transactional
+    public Optional<StockInfo> updateCurrentPrice(String stockCode, double updatePrice) {
+        return stockInfoRepository.findByStockCode(stockCode)
+                .map(stock -> {
+                    stock.setCurrentPrice(updatePrice);
+                    return stockInfoRepository.save(stock);
+                });
+    }
+
 
     @Transactional
     public Optional<StockInfo> updateStock(String stockCode, StockInfo updatedStock) {
