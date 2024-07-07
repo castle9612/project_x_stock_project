@@ -5,7 +5,7 @@ hr{
 #header_main{
     width:100%;
     height:50px;
-    background-color:#FFFFFF;
+    background-color:#F8F8FF;
     border-bottom: 1px solid #6A6A6A;
 }
 
@@ -30,15 +30,30 @@ hr{
 
 #body_main>#stock_info{
     float:left;
-    width: calc(100% - 1500px);
+    width: calc(100% - 1502px);
     height:100%;
-    background-color:aqua;
+    border-right: 1px solid #6A6A6A;
+}
+
+#stock_info>#sample1{
+    width: calc(100% - 30px);
+    height: 150px;
+    background-color:#FFFFFF;
+    border:1px solid #6A6A6A;
+    border-radius:15px;
+    margin:10px auto;
+}
+
+#sample1>p{
+    margin-top:10px;
+    margin-left:20px;
 }
 
 #body_main>#chart{
     float:left;
     width:1100px;
     height:100%;
+    background-color:#FFFFFF;
 }
 
 #chart>#blank{
@@ -50,5 +65,39 @@ hr{
     float:left;
     width: 400px;
     height:100%;
-    background-color:aqua;
+    background-color:#FFFFFF;
+    border-left: 1px solid #6A6A6A;
+}
+
+#contents>#userinfo{
+    width:100%;
+    height:100px;
+    border-bottom: 1px solid #DADADA;
+}
+
+#userinfo>p{
+    margin-top:10px;
+    margin-left:10px;
+}
+
+#contents>#buy_stock{
+    width:100%;
+    height:200px;
+    border-bottom: 1px solid #DADADA;
+}
+
+#buy_stock>h3{
+    margin-top:10px;
+    margin-left:5px;
+}
+
+#contents>#sell_stock{
+    width:100%;
+    height:200px;
+    border-bottom: 1px solid #DADADA;
+}
+
+#sell_stock>h3{
+    margin-top:10px;
+    margin-left:5px;
 }

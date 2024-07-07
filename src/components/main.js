@@ -10,6 +10,25 @@ function Main() {
         window.location.href = '/';
     };
 
+    const stockInfo = {
+        "stockCode": "005930",
+        "stockList": "KOSPI",
+        "company": "삼성전자",
+        "stockType": "보통주",
+        "marketCapitalization": 450000000,
+        "dividend": 2.5,
+        "currentPrice": 71000,
+        "volume": 10000000,
+        "eps": 5000,
+        "per": 14.2,
+        "pbr": 1.5,
+        "roe": 15.8,
+        "sector": "전자제품 제조업",
+        "listedDate": "1975-06-11",
+        "description": "삼성전자는 한국의 대표적인 전자제품 제조 기업으로, 스마트폰, TV, 반도체 등을 생산합니다.",
+        "lastUpdated": "2024-07-07T15:30:00"
+    };
+
     const data = [
         {
             "date": "2024-06-20",
@@ -250,7 +269,12 @@ function Main() {
             </div>
             <div id="body_main">
                 <div id="stock_info">
-                    주가정보
+                    <div id="sample1">
+                        <p><strong>종목명:</strong> {stockInfo.company}</p>
+                        <p><strong>종목코드:</strong> {stockInfo.stockCode}</p>
+                        <p><strong>시가총액:</strong> {stockInfo.marketCapitalization}</p>
+                        <p><strong>현재가:</strong> {stockInfo.currentPrice}</p>
+                    </div>
                 </div>
                 <div id="chart">
                     <div id="blank"/>
@@ -286,7 +310,16 @@ function Main() {
                     </ChartCanvas>
                 </div>
                 <div id="contents">
-                    보유금액, 충전, 매수, 매매 등등
+                    <div id="userinfo">
+                        <p><strong>아이디 : </strong></p>
+                        <p>보유금액</p>
+                    </div>
+                    <div id="buy_stock">
+                        <h3>주식 구매</h3>
+                    </div>
+                    <div id="sell_stock">
+                        <h3>주식 판매</h3>
+                    </div>
                 </div>
             </div>
         </div>
