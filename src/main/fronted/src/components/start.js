@@ -10,7 +10,7 @@ function Start() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://34.22.73.38:8080/login', {
+            const response = await axios.post('/login', {
                 userID,
                 userPW
             });
@@ -21,7 +21,7 @@ function Start() {
                 setError('로그인 실패: ' + response.data.message);
             }
         } catch (error) {
-            setError('로그인 중 오류가 발생했습니다.');
+            alert('로그인 중 오류가 발생했습니다.');
         }
     }
 

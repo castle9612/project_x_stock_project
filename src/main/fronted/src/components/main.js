@@ -11,7 +11,7 @@ function Main() {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://34.22.73.38:8080/stock-data-for-graph', {
+            const response = await axios.get('/stock-data-for-graph', {
                 params: {
                     stockCode: '005930',
                     startDate: '2024-05-05',
@@ -69,6 +69,7 @@ function Main() {
             </div>
             <div id="body_main">
                 <div id="stock_info">
+                    <h3>주가 정보</h3>
                     <div id="sample1">
                         <p><strong>종목명:</strong> {stockInfo.company}</p>
                         <p><strong>종목코드:</strong> {stockInfo.stockCode}</p>
@@ -116,9 +117,27 @@ function Main() {
                     </div>
                     <div id="buy_stock">
                         <h3>주식 구매</h3>
+                        <p>userid</p>
+                        <input type="text" name="userid"/>
+                        <p>stockId</p>
+                        <input type="text" name="stockId"/>
+                        <p>money</p>
+                        <input type="text" name="money"/><hr/>
+                        <button type="submit" id="buy_stock_btn">
+                            <span>구매</span>
+                        </button>
                     </div>
                     <div id="sell_stock">
                         <h3>주식 판매</h3>
+                        <p>userid</p>
+                        <input type="text" name="userid"/>
+                        <p>stockId</p>
+                        <input type="text" name="stockId"/>
+                        <p>quantity</p>
+                        <input type="text" name="quantity"/><hr/>
+                        <button type="submit" id="sell_stock_btn">
+                            <span>판매</span>
+                        </button>
                     </div>
                 </div>
             </div>

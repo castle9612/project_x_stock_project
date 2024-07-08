@@ -27,7 +27,7 @@ function Membership() {
                 setError('회원가입 실패: ' + response.data.message);
             }
         } catch (error) {
-            setError('회원가입 중 오류가 발생했습니다.');
+            alert('회원가입 중 오류가 발생했습니다.');
         }
     }
 
